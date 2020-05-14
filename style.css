@@ -24,20 +24,20 @@ body {
   text-align: center;
 }
 h1 {
-  font-size: 3rem;
+  font-size: 3.5rem;
   color: var(--primary-color);
   text-shadow: var(--text-shadow);
 }
 h3 {
   font-family: var(--secondary-font);
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: var(--secondary-color);
   text-shadow: var(--text-shadow);
 }
 
 button {
   font-family: var(--primary-font);
-  font-size: 1.8rem;
+  font-size: 2rem;
   padding: .8rem;
   margin-right: 1rem;
   border: none;
@@ -67,8 +67,8 @@ button:disabled {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  width: 400px;
-  height: 400px;
+  width: 320px;
+  height: 320px;
   margin: auto;
 }
 .cell {
@@ -76,7 +76,10 @@ button:disabled {
   height: 100%;
   border: 1px solid var(--primary-color);
   justify-self: stretch;
-  font-size: 9rem;
+  font-size: 7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .mdi-close {
@@ -92,5 +95,11 @@ button:disabled {
 
 /* MEDIA QUERIES */
 @media (min-width: 800px) {
-
+  #board {
+    width: 420px;
+    height: 420px;
+  }
+  .cell {
+    font-size: 9rem;
+  }
 }
