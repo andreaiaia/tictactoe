@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@300;500;700&family=Orbitron:wght@400;500;600;900&display=swap');
+:root {
+  --primary-font: 'Orbitron', sans-serif; /* 400-500-600-900 */
+  --secondary-font: 'Jura', sans-serif; /* 300-500-700 */
+  --primary-color: #ff9a00;
+  --primary-disabled: #ff9900a6;
+  --secondary-color: #ff5700;
+  --secondary-disabled: #ff5500a6;
+  --tertiary-color: #2385b2;
+  --tertiary-disabled: #2385b2a6;
+  --text-shadow: 2px 2px 1px white;
+}
+
+/* MAIN STYLE */
+html {
+  min-height: 100%;
+  font-size: 67.5%;
+  background-image: url(img/bg_sun.jpg);
+  background-position: bottom center;
+  background-repeat: no-repeat;
+}
+body {
+  font-family: var(--primary-font);
+  text-align: center;
+}
+h1 {
+  font-size: 3rem;
+  color: var(--primary-color);
+  text-shadow: var(--text-shadow);
+}
+h3 {
+  font-family: var(--secondary-font);
+  font-size: 2rem;
+  color: var(--secondary-color);
+  text-shadow: var(--text-shadow);
+}
+
+button {
+  font-family: var(--primary-font);
+  font-size: 1.8rem;
+  padding: .8rem;
+  margin-right: 1rem;
+  border: none;
+  color: var(--primary-color);
+  background-color: var(--tertiary-color);
+}
+button:hover {
+  box-shadow: 0 0 3px 3px var(--primary-color);
+}
+button:active {
+  color: var(--tertiary-color);
+  background-color: var(--primary-color);
+}
+button:disabled {
+  color: var(--primary-disabled);
+  background-color: var(--tertiary-disabled);
+}
+
+#versus {
+  margin-bottom: 2rem;
+}
+
+/* GAME BOARD*/
+#board {
+  background-color: rgba(0, 0, 0, .7);
+  border: 1px solid var(--primary-color);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  width: 400px;
+  height: 400px;
+  margin: auto;
+}
+.cell {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--primary-color);
+  justify-self: stretch;
+  font-size: 9rem;
+}
+
+.mdi-close {
+  color: var(--secondary-color);
+}
+.mdi-circle-outline {
+  color: var(--tertiary-color);
+}
+
+.cell:hover {
+  box-shadow: 0 0 3px 3px var(--primary-color);
+}
+
+/* MEDIA QUERIES */
+@media (min-width: 800px) {
+
+}
