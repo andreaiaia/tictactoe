@@ -10,19 +10,12 @@ var gameboard = (function() {
   // bins events
   cells.forEach(cell => cell.addEventListener('click', move));
 
-  function _render() {
-    _board.forEach(cell => {
-      console.log(_board);
-      
-      let i = _board.indexOf(cell);
-      if (cell === true) {
-        cells[i].classList.add('mdi-close');
-      } else if (cell === false){
-        cells[i].classList.add('mdi-circle-outline');
-      } else {
-        return;
-      }
-    });
+  function _render(item) {
+    if (_board[item]) {
+      cells[item].classList.add('mdi-close');
+    } else {
+      cells[item].classList.add('mdi-circle-outline');
+    }
   }
 
   function _checkScore() {
@@ -35,9 +28,10 @@ var gameboard = (function() {
 
   function move(e) {
     let i = e.target.dataset.index;
-    _board[i] = _player;
+    if (_board[i] === '') _board[i] = _player;
     _player = !_player;
-    _render()
+    _render(i)
+    _checkScore();
   }
 
   return {

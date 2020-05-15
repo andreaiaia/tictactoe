@@ -96,6 +96,14 @@ button:disabled {
 
 /* MEDIA QUERIES */
 @media (min-width: 800px) {
+  h1 {
+    font-size: 4.5rem;
+    margin-bottom: 0;
+  }
+  h3 {
+    font-size: 3.5rem;
+    margin-top: 0;
+  }
   #board {
     width: 420px;
     height: 420px;
