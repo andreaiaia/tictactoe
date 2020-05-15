@@ -15,10 +15,25 @@ const gameboard = (function() {
                   '','','',
                   '','',''];
   
-  function updateBoard(i) {
-    _board[i] = '1'; //some stuff
-    console.log(_board);
+  // cache DOM
+  const _gameGrid = document.querySelectorAll('.cell');
+
+  function _render() {
+    _board.forEach(cell => {
+      let index = _board.indexOf(cell);
+      _gameGrid[index].classList.add(cell);
+    });
+    
+  }
+  
+  function updateBoard(i, player) {
+    if (player) {
+      _board[i] = 'mdi-close'; // x
+    } else {
+      _board[i] = 'mdi-circle-outline'; // o
+    }
     _checkScore();
+    _render();
   }
 
   function _checkScore() {
@@ -32,6 +47,7 @@ const gameboard = (function() {
 })();
 
 const match = (function() {
+  let _turn = true; //true = player1, false = player2
   // cache DOM
   const _player1Name = document.querySelector('.player1Name');
   const _player2Name = document.querySelector('.player2Name');
@@ -43,13 +59,10 @@ const match = (function() {
   const player1 = playerFactory((_player1Name.value || 'player1'),'x');
   const player2 = playerFactory((_player2Name.value || 'player2'),'x');
 
-  function _render() {
-
-  }
-
   function move(e) {
     let i = e.target.dataset.index;
-    gameboard.updateBoard(i);
+    gameboard.updateBoard(i, _turn);
+    _turn = !_turn;
   };
 
   return {
