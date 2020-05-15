@@ -1,11 +1,29 @@
 var gameboard = (function() {
-  let _board = [];
+  let _board = ['','','',
+                '','','',
+                '','',''];
+  let _player = true; //true = player1, false = player2
   
   // cache DOM
-  let cells = document.querySelectorAll('.cell');
+  let cells = document.querySelectorAll('.cell');  
 
   // bins events
-  cells.forEach(cell => cell.addEventListener('onclick', move))
+  cells.forEach(cell => cell.addEventListener('click', move));
+
+  function _render() {
+    _board.forEach(cell => {
+      console.log(_board);
+      
+      let i = _board.indexOf(cell);
+      if (cell === true) {
+        cells[i].classList.add('mdi-close');
+      } else if (cell === false){
+        cells[i].classList.add('mdi-circle-outline');
+      } else {
+        return;
+      }
+    });
+  }
 
   function _checkScore() {
     _board.forEach(row => {
@@ -15,11 +33,11 @@ var gameboard = (function() {
 
   function _endgame() {}
 
-  function move() {
-    _board.push('hey');
-    console.log(_board);
-    
-    console.log('move');
+  function move(e) {
+    let i = e.target.dataset.index;
+    _board[i] = _player;
+    _player = !_player;
+    _render()
   }
 
   return {
