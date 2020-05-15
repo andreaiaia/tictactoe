@@ -1,8 +1,7 @@
-var gameboard = (function() {
+const gameboard = (function() {
   let _board = ['','','',
                 '','','',
                 '','',''];
-  let _player = true; //true = player1, false = player2
   
   // cache DOM
   let cells = document.querySelectorAll('.cell');  
@@ -28,8 +27,7 @@ var gameboard = (function() {
 
   function move(e) {
     let i = e.target.dataset.index;
-    if (_board[i] === '') _board[i] = _player;
-    _player = !_player;
+    if (_board[i] === '') console.log(_board[i]);
     _render(i)
     _checkScore();
   }
@@ -38,3 +36,14 @@ var gameboard = (function() {
     move: move,
   }
 })();
+
+const playerFactory = (player, symbol) => {
+
+  const sayPlayer = () => console.log(player);
+  const saySymbol = () => console.log(symbol);
+  
+
+  return {
+    sayPlayer: sayPlayer,
+  }
+};
