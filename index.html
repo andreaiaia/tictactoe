@@ -10,25 +10,42 @@
 <body>
   <h1>Tic Tac Toe!</h1>
 
-  <div id="versus">
-    <h3>Play Against:</h3>
-    <div id="options">
-      <button id="human" type="button">Player 2</button>
-      <button id="ai" type="button" disabled="true">AI</button>
+  <div id="board-players">
+    <div id="versus">
+      <h3>Play Against:</h3>
+      <div id="options">
+        <button id="human" type="button">Player 2</button>
+        <button id="ai" type="button" disabled="true">AI</button>
+      </div>
+    </div>
+
+    <div id="board">
+      <div data-index="0" class="cell mdi"></div>
+      <div data-index="1" class="cell mdi"></div>
+      <div data-index="2" class="cell mdi"></div>
+      <div data-index="3" class="cell mdi"></div>
+      <div data-index="4" class="cell mdi"></div>
+      <div data-index="5" class="cell mdi"></div>
+      <div data-index="6" class="cell mdi"></div>
+      <div data-index="7" class="cell mdi"></div>
+      <div data-index="8" class="cell mdi"></div>
+    </div>
+    <div id="players">
+      <div id="player1">
+        <h3>Player 1:</h3>
+        <div>
+          <input type="text">
+        </div>
+      </div>
+      <div id="player2">
+        <h3>Player 2:</h3>
+        <div>
+          <input type="text">
+        </div>    
+      </div>
     </div>
   </div>
 
-  <div id="board">
-    <div data-index="0" class="cell mdi"></div>
-    <div data-index="1" class="cell mdi"></div>
-    <div data-index="2" class="cell mdi"></div>
-    <div data-index="3" class="cell mdi"></div>
-    <div data-index="4" class="cell mdi"></div>
-    <div data-index="5" class="cell mdi"></div>
-    <div data-index="6" class="cell mdi"></div>
-    <div data-index="7" class="cell mdi"></div>
-    <div data-index="8" class="cell mdi"></div>
-  </div>
 </body>
 <script src="script.js"></script>
 </html>
