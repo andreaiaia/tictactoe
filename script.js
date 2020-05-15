@@ -21,7 +21,10 @@ const gameboard = (function() {
     _checkScore();
   }
 
-  function _checkScore() {}
+  function _checkScore() {
+    console.log('hi');
+    
+  }
 
   return {
     updateBoard,
@@ -29,7 +32,6 @@ const gameboard = (function() {
 })();
 
 const match = (function() {
-
   // cache DOM
   const _player1Name = document.querySelector('.player1Name');
   const _player2Name = document.querySelector('.player2Name');
@@ -38,8 +40,12 @@ const match = (function() {
   // bind events
   _board.forEach(cell => cell.addEventListener('click', move));
 
-  const player1 = playerFactory(_player1Name.value,'x');
-  const player2 = playerFactory(_player2Name.value,'x');
+  const player1 = playerFactory((_player1Name.value || 'player1'),'x');
+  const player2 = playerFactory((_player2Name.value || 'player2'),'x');
+
+  function _render() {
+
+  }
 
   function move(e) {
     let i = e.target.dataset.index;

@@ -7,7 +7,7 @@
   --secondary-color: #ff5700;
   --secondary-disabled: #ff5500a6;
   --tertiary-color: #2385b2;
-  --tertiary-disabled: #2385b2a6;
+  --tertiary-disabled: #2385b2b6;
   --text-shadow: 2px 2px 1px white;
 }
 
@@ -101,7 +101,12 @@ button:disabled {
   margin-top: 2rem;
 }
 input {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
+  padding: .5rem;
+  color: var(--primary-color);
+  background-color: var(--tertiary-disabled);
+  border: 1px solid var(--primary-color);
+  box-shadow: 0 0 2px 1px var(--primary-color);
 }
 
 /* MEDIA QUERIES */
