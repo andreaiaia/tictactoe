@@ -1,43 +1,5 @@
-const gameboard = (function() {
-  let _board = ['','','',
-                '','','',
-                '','',''];
-  
-  // cache DOM
-  let cells = document.querySelectorAll('.cell');  
-
-  // bins events
-  cells.forEach(cell => cell.addEventListener('click', move));
-
-  function _render(item) {
-    if (_board[item]) {
-      cells[item].classList.add('mdi-close');
-    } else {
-      cells[item].classList.add('mdi-circle-outline');
-    }
-  }
-
-  function _checkScore() {
-    _board.forEach(row => {
-      // if someone win call _endgame
-    });
-  }
-
-  function _endgame() {}
-
-  function move(e) {
-    let i = e.target.dataset.index;
-    if (_board[i] === '') console.log(_board[i]);
-    _render(i)
-    _checkScore();
-  }
-
-  return {
-    move: move,
-  }
-})();
-
 const playerFactory = (player, symbol) => {
+  const _score = 0;
 
   const sayPlayer = () => console.log(player);
   const saySymbol = () => console.log(symbol);
@@ -47,3 +9,18 @@ const playerFactory = (player, symbol) => {
     saySymbol,
   }
 };
+
+const gameboard = function() {
+  const _board = ['','','',
+                  '','','',
+                  '','',''];
+};
+
+const match = (function() {
+
+  // chache DOM
+  const player1Name = document.querySelector('.player1Name');
+  const player2Name = document.querySelector('.player2Name');
+
+  const player1 = playerFactory(player1Name.value,'x');
+})();
