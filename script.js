@@ -42,8 +42,8 @@ const playerFactory = (player, symbol) => {
   const sayPlayer = () => console.log(player);
   const saySymbol = () => console.log(symbol);
   
-
   return {
-    sayPlayer: sayPlayer,
+    sayPlayer,
+    saySymbol,
   }
 };
