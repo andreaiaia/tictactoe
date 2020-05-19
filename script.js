@@ -14,6 +14,9 @@ const gameboard = (function() {
   const _board = ['','','',
                   '','','',
                   '','',''];
+  const _winComb = ['012', '345', '678',
+                    '036', '147', '258',
+                    '048', '246'];
   
   // cache DOM
   const _gameGrid = document.querySelectorAll('.cell');
@@ -40,7 +43,20 @@ const gameboard = (function() {
   }
 
   function _checkScore() {
+    let xScore = '';
+    let oScore = '';
+    for (let i = 0; i < _board.length; i++) {
+      if (_board[i] === 'x') xScore += i;
+      else if (_board[i] === 'o') oScore += i;
+    }
+    console.log(xScore);
     
+    if (_winComb.includes(xScore)) _winning('player1');
+    else if (_winComb.includes(oScore)) _winning('player2')
+  }
+
+  function _winning(player) {
+    console.log(`${player} won!`);
   }
 
   return {
@@ -53,6 +69,8 @@ const match = (function() {
   // cache DOM
   const _player1Name = document.querySelector('.player1Name');
   const _player2Name = document.querySelector('.player2Name');
+  const _human = document.querySelector('#human');
+  const _ai = document.querySelector('#ai');
   const _board = document.querySelectorAll('.cell');
 
   // bind events
@@ -69,7 +87,4 @@ const match = (function() {
     _turn = !_turn;
   };
 
-  return {
-    move,
-  }
 })();
