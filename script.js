@@ -19,25 +19,27 @@ const gameboard = (function() {
   const _gameGrid = document.querySelectorAll('.cell');
 
   function _render() {
-    _board.forEach(cell => {
-      let index = _board.indexOf(cell);
-      _gameGrid[index].classList.add(cell);
-    });
-    
+    for (let i = 0; i < _board.length; i++) {
+      if (_board[i] === 'x') {
+        _gameGrid[i].classList.add('mdi-close');
+      } else if (_board[i] === 'o') {
+        _gameGrid[i].classList.add('mdi-circle-outline');
+      }
+    }
+
   }
   
   function updateBoard(i, player) {
-    if (player) {
-      _board[i] = 'mdi-close'; // x
-    } else {
-      _board[i] = 'mdi-circle-outline'; // o
+    if (player && _board[i] === '') {
+      _board[i] = 'x'; // x
+    } else if (_board[i] === '') {
+      _board[i] = 'o'; // o
     }
     _checkScore();
     _render();
   }
 
   function _checkScore() {
-    console.log('hi');
     
   }
 
@@ -61,6 +63,8 @@ const match = (function() {
 
   function move(e) {
     let i = e.target.dataset.index;
+    if (e.target.classList.contains('mdi-circle-outline') ||
+        e.target.classList.contains('mdi-close')) return;
     gameboard.updateBoard(i, _turn);
     _turn = !_turn;
   };
