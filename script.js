@@ -1,12 +1,20 @@
 const playerFactory = (player, symbol) => {
-  const _score = 0;
+  const _name = player;
+  const _symbol = symbol;
+  let _score = 0;
 
-  const sayPlayer = () => console.log(player);
-  const saySymbol = () => console.log(symbol);
+  const sayName = () => {return _name};
+  const saySymbol = () => {return _symbol};
+  const increaseScore = () => {_score++};
+  const resetScore = () => {_score = 0};
+  const sayScore = () => {return _score};
   
   return {
-    sayPlayer,
+    sayName,
     saySymbol,
+    increaseScore,
+    resetScore,
+    sayScore,
   }
 };
 
@@ -44,7 +52,7 @@ const gameboard = (function() {
     var precCol = +cell - 3 < 0 ? _board.length + +cell - 3 : +cell - 3;
     var succCol = +cell + 3 > 8 ? +cell + 3 - 9 : +cell + 3;
     var colSum = _board[cell] + _board[precCol] + _board[succCol];
-    if (colSum === 3 || colSum === 12) _winning(player);
+    if (colSum === 3 || colSum === 12) match.closeMatch(player);
 
     // check Row
     let rowSum;
@@ -55,19 +63,14 @@ const gameboard = (function() {
     } else if (6 <= cell && cell < 9) {
       rowSum = _board[6] + _board[7] + _board[8];
     }
-    if (rowSum === 3 || rowSum === 12) _winning(player);
+    if (rowSum === 3 || rowSum === 12) match.closeMatch(player);
 
     // check Diag
     if ('02468'.includes(cell)) {
       let diagA = _board[0] + _board[4] + _board[8];
       let diagB = _board[2] + _board[4] + _board[6];
-      if (diagA === 3 || diagA === 12 || diagB === 3 || diagB === 12) _winning(player);
+      if (diagA === 3 || diagA === 12 || diagB === 3 || diagB === 12) match.closeMatch(player);
     }
-  }
-
-  function _winning(player) {
-    let name = player ? 'x' : 'o';
-    console.log(`${name} won!`);
   }
 
   return {
@@ -77,6 +80,7 @@ const gameboard = (function() {
 
 const match = (function() {
   let _turn = true; //true = player1, false = player2
+
   // cache DOM
   const _player1Name = document.querySelector('.player1Name');
   const _player2Name = document.querySelector('.player2Name');
@@ -86,9 +90,41 @@ const match = (function() {
 
   // bind events
   _board.forEach(cell => cell.addEventListener('click', move));
+  // _human.addEventListener('click',);
+  // _ai.addEventListener('click',);
 
-  const player1 = playerFactory((_player1Name.value || 'player1'),'x');
-  const player2 = playerFactory((_player2Name.value || 'player2'),'x');
+  // generate players
+  const _player1 = playerFactory((_player1Name.value || 'Player 1'),'x');
+  const _player2 = playerFactory((_player2Name.value || 'Player 2'),'x');
+
+  // manipulate the DOM
+  function _render(action) {
+    if (action === false) {
+      _board.forEach(cell => {
+        cell.classList.remove('mdi-circle-outline');
+        cell.classList.remove('mdi-close');
+      });
+    } else {
+      const _bg = document.createElement('div');
+      _bg.classList.add('bg');
+      const _winnerName = document.createElement('h1');
+      _winnerName.textContent = `${action} wins!`
+      const _scoreLabel = document.createElement('h3');
+      _scoreLabel.textContent = 'Score:';
+      const _score = document.createElement('h3');
+      _score.textContent = `${_player1.sayScore()} - ${_player2.sayScore()}`;
+      const _replay = document.createElement('button');
+      _replay.textContent = 'Play again?';
+      
+      _bg.appendChild(_winnerName);
+      _bg.appendChild(_scoreLabel);
+      _bg.appendChild(_score);
+      _bg.appendChild(_replay);
+      document.body.appendChild(_bg);
+      
+      _replay.addEventListener('click', _render(false));
+    }
+  }
 
   function move(e) {
     let i = e.target.dataset.index;
@@ -98,4 +134,23 @@ const match = (function() {
     _turn = !_turn;
   };
 
+  function closeMatch(winner) {
+    if (winner) {
+      var _name = _player1.sayName();
+      _player1.increaseScore();
+    } else {
+      var _name = _player2.sayName();
+      _player2.increaseScore();
+    }
+
+    _render(_name);
+  }
+
+  function _reset() {
+
+  }
+
+  return {
+    closeMatch
+  }
 })();

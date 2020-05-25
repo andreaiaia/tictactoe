@@ -109,6 +109,20 @@ input {
   box-shadow: 0 0 2px 1px var(--primary-color);
 }
 
+/* WINNING */
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .7);
+}
+.bg > h1 {
+  margin-top: 20%;
+  margin-bottom: 5%;
+}
+
 /* MEDIA QUERIES */
 @media (min-width: 800px) {
   h1 {
