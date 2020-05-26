@@ -37,11 +37,17 @@ const gameboard = (function() {
 
   }
   
-  function updateBoard(i, player) {
+  function updateBoard(i, player, replay) {
     if (player && _board[i] === 0) {
       _board[i] = 1; // x
     } else if (_board[i] === 0) {
       _board[i] = 4; // o
+    }
+
+    if (replay) {
+      for (let j = 0; j < _board.length; j++) {
+        _board[j] = 0;
+      }
     }
     _checkScore(i, player);
     _render();
@@ -101,12 +107,16 @@ const match = (function() {
   function _render(action) {
     if (action === false) {
       _board.forEach(cell => {
-        cell.classList.remove('mdi-circle-outline');
         cell.classList.remove('mdi-close');
+        cell.classList.remove('mdi-circle-outline');
       });
-    } else {
+      gameboard.updateBoard(0, false, true);
+      const _bg = document.getElementById('bg');
+      _bg.remove();
+      
+    } else if (action !== false) {
       const _bg = document.createElement('div');
-      _bg.classList.add('bg');
+      _bg.id = 'bg';
       const _winnerName = document.createElement('h1');
       _winnerName.textContent = `${action} wins!`
       const _scoreLabel = document.createElement('h3');
@@ -115,14 +125,13 @@ const match = (function() {
       _score.textContent = `${_player1.sayScore()} - ${_player2.sayScore()}`;
       const _replay = document.createElement('button');
       _replay.textContent = 'Play again?';
+      _replay.addEventListener('click', () => {_render(false)});
       
       _bg.appendChild(_winnerName);
       _bg.appendChild(_scoreLabel);
       _bg.appendChild(_score);
       _bg.appendChild(_replay);
-      document.body.appendChild(_bg);
-      
-      _replay.addEventListener('click', _render(false));
+      document.body.appendChild(_bg); 
     }
   }
 
@@ -144,10 +153,6 @@ const match = (function() {
     }
 
     _render(_name);
-  }
-
-  function _reset() {
-
   }
 
   return {
