@@ -96,8 +96,8 @@ const match = (function() {
 
   // bind events
   _board.forEach(cell => cell.addEventListener('click', move));
-  // _human.addEventListener('click',);
-  // _ai.addEventListener('click',);
+  _human.addEventListener('click', _selectEnemy);
+  _ai.addEventListener('click', _selectEnemy);
 
   // generate players
   const _player1 = playerFactory((_player1Name.value || 'Player 1'),'x');
@@ -132,6 +132,16 @@ const match = (function() {
       _bg.appendChild(_score);
       _bg.appendChild(_replay);
       document.body.appendChild(_bg); 
+    }
+  }
+
+  function _selectEnemy(e) {
+    if (e.target.id === 'human') {
+      _human.classList.add('selected');
+      _ai.classList.remove('selected');
+    } else if (e.target.id === 'ai') {
+      _human.classList.remove('selected');
+      _ai.classList.add('selected');
     }
   }
 

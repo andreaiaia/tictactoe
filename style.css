@@ -55,6 +55,10 @@ button:disabled {
   color: var(--primary-disabled);
   background-color: var(--tertiary-disabled);
 }
+button.selected {
+  color: var(--tertiary-color);
+  background-color: var(--primary-color);
+}
 
 #versus {
   margin-bottom: 2rem;
