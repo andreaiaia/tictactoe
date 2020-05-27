@@ -85,6 +85,7 @@ const gameboard = (function() {
 })();
 
 const match = (function() {
+  let _vsAI = false;
   let _turn = true; //true = player1, false = player2
 
   // cache DOM
@@ -95,7 +96,7 @@ const match = (function() {
   const _board = document.querySelectorAll('.cell');
 
   // bind events
-  _board.forEach(cell => cell.addEventListener('click', move));
+  _board.forEach(cell => cell.addEventListener('click', _move));
   _human.addEventListener('click', _selectEnemy);
   _ai.addEventListener('click', _selectEnemy);
 
@@ -139,19 +140,33 @@ const match = (function() {
     if (e.target.id === 'human') {
       _human.classList.add('selected');
       _ai.classList.remove('selected');
+      _vsAI = false;
     } else if (e.target.id === 'ai') {
       _human.classList.remove('selected');
       _ai.classList.add('selected');
+      _vsAI = true;
     }
   }
 
-  function move(e) {
+  function _move(e) {
     let i = e.target.dataset.index;
     if (e.target.classList.contains('mdi-circle-outline') ||
         e.target.classList.contains('mdi-close')) return;
     gameboard.updateBoard(i, _turn);
     _turn = !_turn;
+    if (_vsAI === true) _aiMove();
   };
+
+  function _aiMove() {
+    let i = Math.floor(Math.random() * 9);
+    if (!_board[i].classList.contains('mdi-circle-outline') ||
+        !_board[i].classList.contains('mdi-close')) {
+      _board[i].classList.add('mdi-circle-outline');
+    } else {
+      _aiMove();
+    }
+    _turn = !_turn;
+  }
 
   function closeMatch(winner) {
     if (winner) {
