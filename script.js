@@ -53,6 +53,10 @@ const gameboard = (function() {
     _render();
   }
 
+  function legalMove(i) {
+    return (_board[i] === 0);
+  }
+
   function _checkScore(cell, player) {
     // check Column
     var precCol = +cell - 3 < 0 ? _board.length + +cell - 3 : +cell - 3;
@@ -81,6 +85,7 @@ const gameboard = (function() {
 
   return {
     updateBoard,
+    legalMove,
   }
 })();
 
@@ -132,7 +137,7 @@ const match = (function() {
       _bg.appendChild(_scoreLabel);
       _bg.appendChild(_score);
       _bg.appendChild(_replay);
-      document.body.appendChild(_bg); 
+      document.body.appendChild(_bg);
     }
   }
 
@@ -151,17 +156,17 @@ const match = (function() {
   function _move(e) {
     let i = e.target.dataset.index;
     if (e.target.classList.contains('mdi-circle-outline') ||
-        e.target.classList.contains('mdi-close')) return;
+        e.target.classList.contains('mdi-close')) {return;}
     gameboard.updateBoard(i, _turn);
     _turn = !_turn;
-    if (_vsAI === true) _aiMove();
-  };
+    if (_vsAI) _aiMove();
+  }
 
   function _aiMove() {
-    let i = Math.floor(Math.random() * 9);
-    if (!_board[i].classList.contains('mdi-circle-outline') ||
-        !_board[i].classList.contains('mdi-close')) {
+    let i = Math.floor(Math.random() * _board.length);
+    if (gameboard.legalMove(i)) {
       _board[i].classList.add('mdi-circle-outline');
+      gameboard.updateBoard(i, _turn);
     } else {
       _aiMove();
     }
@@ -176,7 +181,6 @@ const match = (function() {
       var _name = _player2.sayName();
       _player2.increaseScore();
     }
-
     _render(_name);
   }
 
